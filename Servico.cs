@@ -11,7 +11,7 @@ namespace AmericanosDoValeEmbelezado
 
         public double preco;
 
-        public Dictionary<DateTime, string> agenda;
+        // public Dictionary<DateTime, string> agenda;
 
         public Servico(string nome, string descricao, double preco){
             
@@ -21,7 +21,7 @@ namespace AmericanosDoValeEmbelezado
 
             this.preco = preco;
             
-            agenda = new Dictionary<DateTime, string>();
+            // agenda = new Dictionary<DateTime, string>();
             
         }
 
