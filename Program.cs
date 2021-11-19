@@ -6,7 +6,8 @@ namespace AmericanosDoValeEmbelezado
     {
         static void Main(string[] args)
         {
-            
+            CadastroCliente CadastroUsuarios = new CadastroCliente();
+
         }
     }
 }
