@@ -5,7 +5,7 @@ namespace AmericanosDoValeEmbelezado
 {
     public class Prestador : Usuario, IVerificado
     {
-        public Prestador(string nome, string telefone, string endereco, string email, string tipo_conta, string cpf_cnpj):base(nome, telefone, endereco, email, tipo_conta, cpf_cnpj)
+        public Prestador(string nome, string telefone, string endereco, string email, string tipo_conta, string cpf_cnpj, string senha):base(nome, telefone, endereco, email, tipo_conta, cpf_cnpj, senha)
         {
 
             this.nome = nome;
@@ -14,15 +14,16 @@ namespace AmericanosDoValeEmbelezado
             this.email = email;
             this.tipo_conta = tipo_conta;
             this.cpf_cnpj = cpf_cnpj;
+            this.senha = senha;
 
         }
-
+        
         private List<Servico> servicos = new List<Servico>();
         private List<Produto> produtos = new List<Produto>();
-        Dictionary<DateTime, string> agenda = new Dictionary<DateTime, string>();
+        public static Dictionary<DateTime, string> agenda = new Dictionary<DateTime, string>();
         Dictionary<DateTime, string>.ValueCollection pessoa = agenda.Values;
 
-
+        
         public int qtd_pessoa{
             get{
                 return qtd_pessoa;

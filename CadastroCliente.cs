@@ -1,17 +1,25 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
+
+//Terminar o logar
+//criar tela prestador
+//criar o marketplace cliente
+//agenda
 
 namespace AmericanosDoValeEmbelezado
 {
     public class CadastroCliente
     {   
-        private List<Usuario> cadastrados = new List<Usuario>();
+        public List<Usuario> cadastrados = new List<Usuario>();
 
         public void recolheCadastro(){
-            try{
-                bool sentinela = false;
-                while(!sentinela) {
-                    Console.WriteLine("Olá Bem-vindo(a), ao cadastro de usuario!");
+
+            Console.Clear();
+            Console.WriteLine("Olá Bem-vindo(a), ao cadastro de usuario!");
+            bool sentinela = false;
+            while(!sentinela) {
+                try{
                     Console.Write("Digite o seu nome de usuario (Obrigatório) >> ");
                     string nome = Console.ReadLine();
 
@@ -27,69 +35,130 @@ namespace AmericanosDoValeEmbelezado
                     Console.Write("Digite o tipo conta(C para cliente e P para prestador) (Obrigatório) >> ");
                     string tipo_conta = Console.ReadLine().ToUpper();
                     if(tipo_conta != "C" && tipo_conta != "P"){
-                        throw new Exception("O valor do tipo da conta só pode ser C ou P !");
+                        throw new ArgumentException("O valor do tipo da conta só pode ser C ou P !", "ecess");
                     }
 
                     Console.Write("Digite o seu CPF ou CNPJ (Obrigatório) >> ");
-                    int cpf_cnpj = int.Parse(Console.ReadLine());
+                    long cpf_cnpj = long.Parse(Console.ReadLine());
                     if(!validaCpf_Cnpj(cpf_cnpj)) {
-                        throw new Exception("O CPF deve conter 11 digitos e o CNPJ deve conter 14 digitos!");
+                        throw new ArgumentOutOfRangeException("O CPF deve conter 11 digitos e o CNPJ deve conter 14 digitos!");
                     }
                     if(tipo_conta == "P" && tipoCpf_Cnpj(cpf_cnpj) == "F"){
-                        throw new Exception("Prestadores só podem ser cadastrados com um CNPJ!");
+                        throw new ArgumentException("Prestadores só podem ser cadastrados com um CNPJ!");
                     }
+                    Console.Write("Digite uma senha para a sua conta (Obrigatório) >> ");
+                    string senha = Console.ReadLine();
 
-                    if(verificaDados(nome, telefone, endereco)) {
-                        if(!initUsu(nome, telefone, endereco, email, tipo_conta, cpf_cnpj)){
+                    if(verificaDados(nome, telefone, endereco, senha)) {
+                        if(initUsu(nome, telefone, endereco, email, tipo_conta, cpf_cnpj, senha)){
                             Console.WriteLine("Usuario criado com sucesso!");
                         }
                         sentinela = true;
                     }
+                    
                 }
 
-                
-            
-            }
+                catch(ArgumentOutOfRangeException){
+                    Console.Clear();
+                    Console.WriteLine("Valores com tamanho não aceitavel!");
+                }
 
-            catch (FormatException) {
-                Console.WriteLine("Você digitou algum valor inválido!");
-                recolheCadastro();
+                catch (ArgumentException) {
+                    Console.Clear();
+                    Console.WriteLine("Você digitou algum valor inválido!");
+
+                }
             }
         }
-        //Método de inicialização dos atriutos de um usuario
-        public bool initUsu(string nome, string telefone, string endereco, string email, string tipo_conta, int cpf_cnpj){
 
-            if(tipo_conta == "C"){
-                Cliente user = new Cliente(nome, telefone, endereco, email, tipo_conta, Convert.ToString(cpf_cnpj));
-                cadastrados.Add(user);
+        public Usuario logar(string nomeUsu, string senhaUsu) {
+            if(verificaLogin(nomeUsu, senhaUsu) == -1) {
+                //
             }
-            else if(tipo_conta == "P") {
-                Prestador user = new Prestador(nome, telefone, endereco, email, tipo_conta, Convert.ToString(cpf_cnpj));
-                cadastrados.Add(user);
+        }
+
+        private int verificaLogin(string nomeUsu, string senhaUsu) {
+            int encontrado = -1;
+            for(int i = 0; i < cadastrados.Count; i++)
+            {
+                if(cadastrados[i].nome == nomeUsu && cadastrados[i].senha == senhaUsu) {
+                    encontrado = i;
+                }
             }
+            return encontrado;
+        }
+
+        //Método de inicialização dos atriutos de um usuario
+        public bool initUsu(string nome, string telefone, string endereco, string email, string tipo_conta, long cpf_cnpj, string senha){
+
+            try
+                {
+                    using (StreamWriter sw = File.AppendText("C:\\Users\\bielp\\Documents\\GitHub\\AmericanosDoValeEmbelezado\\pessoas.txt"))
+                    {
+                        sw.WriteLine($"{nome},{telefone},{endereco},{email},{tipo_conta},{cpf_cnpj},{senha}", true);
+                    }
+            
+                }
+                catch(Exception e)
+                {
+                    Console.WriteLine("Exception: " + e.Message);
+                }
+
             return true;
         }
 
-        private bool verificaDados(string nome, string telefone, string endereco){
-            if(nome != "" && telefone != "" && endereco != "") {
+        private bool verificaDados(string nome, string telefone, string endereco, string senha){
+            if(nome != "" && telefone != "" && endereco != "" && senha != "") {
                 return true;
             }
             return false;
         }
 
-        private bool validaCpf_Cnpj(int cpf_cnpj) {
+        private bool validaCpf_Cnpj(long cpf_cnpj) {
             if(cpf_cnpj.ToString().Length == 11 || cpf_cnpj.ToString().Length == 14){
                 return true;
             }
             return false;
         }
 
-        private string tipoCpf_Cnpj(int cpf_cnpj) {
+        private string tipoCpf_Cnpj(long cpf_cnpj) {
             if(cpf_cnpj.ToString().Length == 11) {
                 return "F";
             }
             return "J";
         }
 
+
+        // public int Logar(){
+            
+
+        //     return sent;
+        // }
+
+        public void leitor() {
+            StreamReader sr = new StreamReader("C:\\Users\\bielp\\Documents\\GitHub\\AmericanosDoValeEmbelezado\\pessoas.txt");
+
+            string linha = sr.ReadLine();
+
+            /*while(linha != null) {
+                Console.WriteLine(linha);
+                linha = sr.ReadLine();
+            }*/
+            
+            String[] temp;
+            while(linha != null) {
+                temp = linha.Split(",");
+                if(temp[4] == "C"){
+                    Cliente user = new Cliente(temp[0], temp[1], temp[2], temp[3], temp[4], temp[5], temp[6]);
+                    cadastrados.Add(user);
+                }
+                else if(temp[4] == "P") {
+                    Prestador user = new Prestador(temp[0], temp[1], temp[2], temp[3], temp[4], temp[5], temp[6]);
+                    cadastrados.Add(user);
+                }
+
+                linha = sr.ReadLine();
+            }
+        }
     }
 }
