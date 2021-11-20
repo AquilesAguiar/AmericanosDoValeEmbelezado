@@ -7,6 +7,7 @@ namespace AmericanosDoValeEmbelezado
         static void Main(string[] args)
         {
             CadastroCliente CadastroUsuarios = new CadastroCliente();
+            Home home = new Home();
 
             bool sentinela = false;
             while(!sentinela) {
@@ -20,12 +21,23 @@ namespace AmericanosDoValeEmbelezado
 
                 switch(sent) {
                     case 1:
-                        CadastroUsuarios.leitor();
-                        Console.Write("Digite o nome do usuario >> ");
-                        string n = Console.ReadLine();
+                        bool sentinelaCase1 = false;
+                        while(!sentinelaCase1) {
+                            CadastroUsuarios.leitor();
+                            Console.Write("Digite o nome do usuario >> ");
+                            string n = Console.ReadLine();
 
-                        Console.Write("Digite o nome do usuario >> ");
-                        string pass = Console.ReadLine();
+                            Console.Write("Digite o nome do usuario >> ");
+                            string pass = Console.ReadLine();
+
+                            if(CadastroUsuarios.logar(n, pass)){
+                                home.iniciaHome(CadastroUsuarios.usuarioLogado);
+                            }
+                            else {
+                                Console.Clear();
+                                Console.WriteLine("Alguma informação está incorreta!");
+                            }
+                        }
 
                         break;
                     case 2:

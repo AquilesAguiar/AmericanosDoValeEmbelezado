@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-//Terminar o logar
+//Terminar o logar - Iniciado
 //criar tela prestador
 //criar o marketplace cliente
 //agenda
@@ -104,26 +104,6 @@ namespace AmericanosDoValeEmbelezado
             }
         }
 
-        public bool logar(string nomeUsu, string senhaUsu) {
-            int user = verificaLogin(nomeUsu, senhaUsu);
-            if(user != -1) {
-                usuarioLogado = cadastrados[user];
-                return true;
-            }
-            return false;
-        }
-
-        public int verificaLogin(string nomeUsu, string senhaUsu) {
-            int encontrado = -1;
-            for(int i = 0; i < cadastrados.Count; i++)
-            {
-                if(cadastrados[i].nome == nomeUsu && cadastrados[i].senha == senhaUsu) {
-                    encontrado = i;
-                }
-            }
-            return encontrado;
-        }
-
         //Método de inicialização dos atriutos de um usuario
         public bool initUsu(string nome, string telefone, string endereco, string email, string tipo_conta, long cpf_cnpj, string senha){
 
@@ -168,11 +148,6 @@ namespace AmericanosDoValeEmbelezado
             StreamReader sr = new StreamReader("pessoas.txt");
 
             string linha = sr.ReadLine();
-
-            /*while(linha != null) {
-                Console.WriteLine(linha);
-                linha = sr.ReadLine();
-            }*/
             
             String[] temp;
             while(linha != null) {
@@ -189,5 +164,30 @@ namespace AmericanosDoValeEmbelezado
                 linha = sr.ReadLine();
             }
         }
+
+
+        //--------------------------------------------------
+
+        public bool logar(string nomeUsu, string senhaUsu) {
+            int user = verificaLogin(nomeUsu, senhaUsu);
+            if(user != -1) {
+                usuarioLogado = cadastrados[user];
+                return true;
+            }
+            return false;
+        }
+
+        private int verificaLogin(string nomeUsu, string senhaUsu) {
+            int encontrado = -1;
+            for(int i = 0; i < cadastrados.Count; i++)
+            {
+                if(cadastrados[i].nome == nomeUsu && cadastrados[i].senha == senhaUsu) {
+                    encontrado = i;
+                }
+            }
+            return encontrado;
+        }
+
+        //---------------------------------------------------------
     }
 }
