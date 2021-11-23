@@ -27,7 +27,7 @@ namespace AmericanosDoValeEmbelezado
                             Console.Write("Digite o nome do usuario >> ");
                             string n = Console.ReadLine();
 
-                            Console.Write("Digite o nome do usuario >> ");
+                            Console.Write("Digite a senha do usuario >> ");
                             string pass = Console.ReadLine();
 
                             if(CadastroUsuarios.logar(n, pass)){
@@ -45,6 +45,8 @@ namespace AmericanosDoValeEmbelezado
                         break;
                     case 3:
                         sentinela = true;
+                        Console.WriteLine("Saindo...");
+                        Environment.Exit(0);
                         break;
                     default:
                         Console.Clear();

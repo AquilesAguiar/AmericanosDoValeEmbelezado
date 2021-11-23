@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 
 //Terminar o logar - Iniciado
-//criar tela prestador
 //criar o marketplace cliente
+//criar tela prestador
 //agenda
 
 namespace AmericanosDoValeEmbelezado
@@ -109,9 +109,12 @@ namespace AmericanosDoValeEmbelezado
 
             try
                 {
+                    if(cadastrados.Count < 1) {
+                        leitor();
+                    }
                     using (StreamWriter sw = File.AppendText("pessoas.txt"))
                     {
-                        sw.WriteLine($"{nome},{telefone},{endereco},{email},{tipo_conta},{cpf_cnpj},{senha}", true);
+                        sw.WriteLine($"{nome},{telefone},{endereco},{email},{tipo_conta},{cpf_cnpj},{senha},{cadastrados.Count}", true);
                     }
             
                 }

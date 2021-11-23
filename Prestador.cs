@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace AmericanosDoValeEmbelezado
 {
@@ -94,6 +95,34 @@ namespace AmericanosDoValeEmbelezado
                 return true;
             }
             return false;
+        }
+
+        public void carregaEstoque(String codPrestador){
+            StreamReader sr = new StreamReader("estoque.txt");
+            string linha = sr.ReadLine();
+    
+            if(codPrestador == linha.Split("+")[0]){
+                while(linha != null) {
+                temp = linha.Split(",");
+                if(temp[4] == "C"){
+                    Cliente user = new Cliente(temp[0], temp[1], temp[2], temp[3], temp[4], temp[5], temp[6]);
+                    cadastrados.Add(user);
+                }
+                else if(temp[4] == "P") {
+                    Prestador user = new Prestador(temp[0], temp[1], temp[2], temp[3], temp[4], temp[5], temp[6]);
+                    cadastrados.Add(user);
+                }
+
+                linha = sr.ReadLine();
+            }
+            }
+        }
+        public void adicionaProduto(){
+            //
+        }
+
+        public void adcionaServiço(){
+
         }
 
     }
