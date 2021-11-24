@@ -7,18 +7,18 @@ namespace AmericanosDoValeEmbelezado
         public string tipoHome{get; private set;}
         private Usuario usuarioLogado;
 
+        private Prestador prestadorAtual;
 
-        public void iniciaHome(Usuario usuarioLogado){
+        public void iniciaHome(Prestador usuarioLogado){
+            tipoHome = "P";
+            homePrestador();
+            prestadorAtual = usuarioLogado;
+        }
 
-            this.usuarioLogado = usuarioLogado;
-            if(usuarioLogado.tipo_conta == "C"){
-                tipoHome = "C";
-                homeCliente();
-            }
-            else{
-                tipoHome = "P";
-                homePrestador();
-            }
+        public void iniciaHome(Cliente cliente){
+            tipoHome = "C";
+            homeCliente();
+            usuarioLogado = cliente;
         }
 
 
@@ -67,6 +67,8 @@ namespace AmericanosDoValeEmbelezado
 
                 switch(resp){
                     case 1:
+                        usu
+                        usuarioLogado.Cadastro();
                         break;
 
                     case 2:

@@ -31,7 +31,7 @@ namespace AmericanosDoValeEmbelezado
                             string pass = Console.ReadLine();
 
                             if(CadastroUsuarios.logar(n, pass)){
-                                home.iniciaHome(CadastroUsuarios.usuarioLogado);
+                                home.iniciaHome(CadastroUsuarios.cadastrados[CadastroUsuarios.verificaLogin(n, pass)]);
                             }
                             else {
                                 Console.Clear();

@@ -1,4 +1,6 @@
-1+produto teste,29.5,descrição do produto,5+nome serviço,descrição serviço,150.2
+1+produto teste,29.5,descrição do produto,5+Produto
+1+serviço teste,80.0,descrição do serviço+Servico
+
 
 
 

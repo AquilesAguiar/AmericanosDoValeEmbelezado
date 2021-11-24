@@ -180,7 +180,7 @@ namespace AmericanosDoValeEmbelezado
             return false;
         }
 
-        private int verificaLogin(string nomeUsu, string senhaUsu) {
+        public int verificaLogin(string nomeUsu, string senhaUsu) {
             int encontrado = -1;
             for(int i = 0; i < cadastrados.Count; i++)
             {

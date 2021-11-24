@@ -64,8 +64,13 @@ namespace AmericanosDoValeEmbelezado
             }
         }
         
-        //TODO
-        public bool Cadastro(){
+        public bool Cadastro(int tipo, string codigoPrestador){
+            
+            if(servicos.Count == 0 && produtos.Count == 0){
+                carregaEstoque(codigoPrestador);
+            }
+            
+            Edicao(tipo, codigoPrestador);
             return true;
         }
 
@@ -73,8 +78,37 @@ namespace AmericanosDoValeEmbelezado
             return true;
         }
 
-        public bool Edicao(){
+        public bool Edicao(int tipo, string codigoPrestador){
+            
+            bool senti = false;
+            while(!senti){
+                Console.WriteLine("Digite o nome: ");
+                string nome = Console.ReadLine();
+
+                Console.WriteLine("Digite o preço: ");
+                double preco = Double.Parse(Console.ReadLine());
+                
+                Console.WriteLine("Digite a descrição: ");
+                string desc = Console.ReadLine();
+            
+                if(tipo == 1) {
+                    Console.WriteLine("Digite a quantidade:");
+                    int qtd = int.Parse(Console.ReadLine());
+                    
+                    Produto produto = new Produto(nome, preco, desc, qtd);
+                    produtos.Add(produto);
+                    escreveArquivo(codigoPrestador, nome, preco, desc, qtd.ToString());
+                    senti = true;
+                }
+                
+                Servico servico = new Servico(nome, desc, preco);
+                servicos.Add(servico);
+                escreveArquivo(codigoPrestador, nome, preco, desc);
+                senti = true;        
+            }
+
             return true;
+            
         }
 
         public bool isVerified(){
@@ -100,29 +134,46 @@ namespace AmericanosDoValeEmbelezado
         public void carregaEstoque(String codPrestador){
             StreamReader sr = new StreamReader("estoque.txt");
             string linha = sr.ReadLine();
-    
-            if(codPrestador == linha.Split("+")[0]){
-                while(linha != null) {
-                temp = linha.Split(",");
-                if(temp[4] == "C"){
-                    Cliente user = new Cliente(temp[0], temp[1], temp[2], temp[3], temp[4], temp[5], temp[6]);
-                    cadastrados.Add(user);
-                }
-                else if(temp[4] == "P") {
-                    Prestador user = new Prestador(temp[0], temp[1], temp[2], temp[3], temp[4], temp[5], temp[6]);
-                    cadastrados.Add(user);
-                }
 
+            while(linha != null) {
+                String[] temp = linha.Split("+");
+                
+                if(codPrestador == temp[0]){
+                    if(temp[2] == "Produto"){
+                        temp = temp[1].Split(",");
+                        Produto produto = new Produto(temp[0], double.Parse(temp[1]), temp[2], int.Parse(temp[3]));
+                        produtos.Add(produto);                    
+                }else{
+                        temp = temp[1].Split(",");
+                        Servico servico = new Servico(temp[0], temp[1], Double.Parse(temp[2]));
+                        servicos.Add(servico);
+                    }
+                }
                 linha = sr.ReadLine();
             }
-            }
         }
-        public void adicionaProduto(){
-            //
-        }
+        
 
-        public void adcionaServiço(){
-
+        // Criar método de escrita no arquivo
+        private void escreveArquivo(string codigo, string nome, double preco, string desc, string qtd = ""){
+            try
+                {
+                    using (StreamWriter sw = File.AppendText("estoque.txt"))
+                    {
+                        if(qtd !=""){
+                            sw.WriteLine($"{codigo}+{nome},{preco},{desc},{qtd}+Produto", true);
+                        }
+                        else {
+                            sw.WriteLine($"{codigo}+{nome},{preco},{desc}+Servico", true);
+                        }
+                        
+                    }
+            
+                }
+                catch(Exception e)
+                {
+                    Console.WriteLine("Exception: " + e.Message);
+                }
         }
 
     }

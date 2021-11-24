@@ -10,13 +10,15 @@ namespace AmericanosDoValeEmbelezado
         
         public int quantidade;
 
-        public Produto(string nome, double preco, string descricao){
+        public Produto(string nome, double preco, string descricao, int quantidade){
             
             this.nome = nome;
 
             this.preco = preco;
 
             this.descricao = descricao;
+
+            this.quantidade = quantidade;
         }
 
     }
