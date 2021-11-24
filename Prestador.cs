@@ -6,7 +6,7 @@ namespace AmericanosDoValeEmbelezado
 {
     public class Prestador : Usuario, IVerificado
     {
-        public Prestador(string nome, string telefone, string endereco, string email, string tipo_conta, string cpf_cnpj, string senha):base(nome, telefone, endereco, email, tipo_conta, cpf_cnpj, senha)
+        public Prestador(string nome, string telefone, string endereco, string email, string tipo_conta, string cpf_cnpj, string senha, string cod):base(nome, telefone, endereco, email, tipo_conta, cpf_cnpj, senha, cod)
         {
 
             this.nome = nome;
@@ -16,6 +16,7 @@ namespace AmericanosDoValeEmbelezado
             this.tipo_conta = tipo_conta;
             this.cpf_cnpj = cpf_cnpj;
             this.senha = senha;
+            this.cod = cod;
 
         }
         

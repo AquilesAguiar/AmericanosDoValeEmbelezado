@@ -11,8 +11,26 @@ namespace AmericanosDoValeEmbelezado
 {
     public class CadastroCliente
     {   
-        public Usuario usuarioLogado{get; private set;}
-        public List<Usuario> cadastrados = new List<Usuario>();
+        private Cliente clienteLogado = null;
+        public Cliente ClienteLogado {
+            get {
+                return this.clienteLogado;
+            }
+            private set {
+                this.clienteLogado = value;
+            }
+        }
+        public Prestador prestadorLogado = null;
+        public Prestador PrestadorLogado {
+            get {
+                return this.prestadorLogado;
+            }
+            private set {
+                this.prestadorLogado = value;
+            }
+        }
+        public List<Cliente> clientes = new List<Cliente>();
+        public List<Prestador> prestadores = new List<Prestador>();
 
         public void recolheCadastro(){
 
@@ -109,12 +127,13 @@ namespace AmericanosDoValeEmbelezado
 
             try
                 {
-                    if(cadastrados.Count < 1) {
+                    if(clientes.Count < 1 && prestadores.Count < 1) {
                         leitor();
                     }
                     using (StreamWriter sw = File.AppendText("pessoas.txt"))
                     {
-                        sw.WriteLine($"{nome},{telefone},{endereco},{email},{tipo_conta},{cpf_cnpj},{senha},{cadastrados.Count}", true);
+                        sw.WriteLine($"{nome},{telefone},{endereco},{email},{tipo_conta},{cpf_cnpj},{senha},{clientes.Count + prestadores.Count}", true);
+                        sw.Close();
                     }
             
                 }
@@ -122,7 +141,7 @@ namespace AmericanosDoValeEmbelezado
                 {
                     Console.WriteLine("Exception: " + e.Message);
                 }
-
+    
             return true;
         }
 
@@ -156,36 +175,51 @@ namespace AmericanosDoValeEmbelezado
             while(linha != null) {
                 temp = linha.Split(",");
                 if(temp[4] == "C"){
-                    Cliente user = new Cliente(temp[0], temp[1], temp[2], temp[3], temp[4], temp[5], temp[6]);
-                    cadastrados.Add(user);
+                    Cliente user = new Cliente(temp[0], temp[1], temp[2], temp[3], temp[4], temp[5], temp[6], temp[7]);
+                    clientes.Add(user);
                 }
                 else if(temp[4] == "P") {
-                    Prestador user = new Prestador(temp[0], temp[1], temp[2], temp[3], temp[4], temp[5], temp[6]);
-                    cadastrados.Add(user);
+                    Prestador user = new Prestador(temp[0], temp[1], temp[2], temp[3], temp[4], temp[5], temp[6], temp[7]);
+                    prestadores.Add(user);
                 }
 
                 linha = sr.ReadLine();
             }
+            sr.Close();
         }
 
 
         //--------------------------------------------------
 
         public bool logar(string nomeUsu, string senhaUsu) {
-            int user = verificaLogin(nomeUsu, senhaUsu);
-            if(user != -1) {
-                usuarioLogado = cadastrados[user];
+            List<String> user = verificaLogin(nomeUsu, senhaUsu);
+            if(user.Count != 0) {
+                if(user[0] == "C"){
+                    clienteLogado = clientes[int.Parse(user[1])];
+                }
+                else {
+                    prestadorLogado = prestadores[int.Parse(user[1])];
+                }
                 return true;
             }
             return false;
         }
 
-        public int verificaLogin(string nomeUsu, string senhaUsu) {
-            int encontrado = -1;
-            for(int i = 0; i < cadastrados.Count; i++)
+        public List<String> verificaLogin(string nomeUsu, string senhaUsu) {
+            List<String> encontrado = new List<string>(){};
+            for(int i = 0; i < clientes.Count; i++)
             {
-                if(cadastrados[i].nome == nomeUsu && cadastrados[i].senha == senhaUsu) {
-                    encontrado = i;
+                if(clientes[i].nome == nomeUsu && clientes[i].senha == senhaUsu) {
+                    encontrado.Add("C");
+                    encontrado.Add(i.ToString());
+                }
+            }
+
+            for(int i = 0; i < prestadores.Count; i++)
+            {
+                if(prestadores[i].nome == nomeUsu && prestadores[i].senha == senhaUsu) {
+                    encontrado.Add("P");
+                    encontrado.Add(i.ToString());
                 }
             }
             return encontrado;

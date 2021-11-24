@@ -29,9 +29,14 @@ namespace AmericanosDoValeEmbelezado
 
                             Console.Write("Digite a senha do usuario >> ");
                             string pass = Console.ReadLine();
-
+                        
                             if(CadastroUsuarios.logar(n, pass)){
-                                home.iniciaHome(CadastroUsuarios.cadastrados[CadastroUsuarios.verificaLogin(n, pass)]);
+                                if(CadastroUsuarios.ClienteLogado != null){
+                                    home.homeCliente(CadastroUsuarios.ClienteLogado);
+                                }
+                                else {
+                                    home.homePrestador(CadastroUsuarios.PrestadorLogado);
+                                }
                             }
                             else {
                                 Console.Clear();

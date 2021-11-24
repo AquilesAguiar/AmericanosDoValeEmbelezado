@@ -20,8 +20,10 @@ namespace AmericanosDoValeEmbelezado
         // CPF = 11
         // CNPJ = 14
         public string senha{get; protected set;}
+
+        public string cod{get; protected set;}
         
-        public Usuario(string nome, string telefone, string endereco, string email, string tipo_conta, string cpf_cnpj, string senha){
+        public Usuario(string nome, string telefone, string endereco, string email, string tipo_conta, string cpf_cnpj, string senha, string cod){
             
             this.nome = nome;
             this.telefone = telefone;
@@ -30,7 +32,7 @@ namespace AmericanosDoValeEmbelezado
             this.tipo_conta = tipo_conta;
             this.cpf_cnpj = cpf_cnpj;
             this.senha = senha;
-
+            this.cod = cod;
         }
 
 

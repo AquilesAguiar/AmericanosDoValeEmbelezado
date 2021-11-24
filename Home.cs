@@ -5,43 +5,37 @@ namespace AmericanosDoValeEmbelezado
     public class Home
     {
         public string tipoHome{get; private set;}
-        private Usuario usuarioLogado;
-
         private Prestador prestadorAtual;
 
-        public void iniciaHome(Prestador usuarioLogado){
-            tipoHome = "P";
-            homePrestador();
-            prestadorAtual = usuarioLogado;
-        }
-
-        public void iniciaHome(Cliente cliente){
-            tipoHome = "C";
-            homeCliente();
-            usuarioLogado = cliente;
-        }
+        Marketplace loja = new Marketplace();
 
 
-        private void homeCliente(){
+        public void homeCliente(Cliente usuarioLogado){
             int resp = -1;
             bool sentinelaHome = false;
             while(!sentinelaHome) {
                 Console.Clear();
                 Console.WriteLine($"Olá {usuarioLogado.nome}!");
                 Console.WriteLine(@"Oque deseja fazer?
-1 - Procurar produtos/serviços
-2 - Ver perfil
-3 - Sair");
+1 - Procurar produtos
+2 - Procurar serviçios
+3 - Ver perfil
+4 - Sair");
                 resp = int.Parse(Console.ReadLine());
                 switch (resp){
                     case 1:
+                        loja.marketLoja(resp);
                         break;
 
                     case 2:
+                        loja.marketLoja(resp);
+                        break;    
+                        
+                    case 3:
                         mostraPerfil(usuarioLogado);
                         break;
 
-                    case 3:
+                    case 4:
                         sentinelaHome = true;
                         Console.Clear();
                         break;
@@ -52,7 +46,7 @@ namespace AmericanosDoValeEmbelezado
             }
         }
 
-        private void homePrestador(){
+        public void homePrestador(Prestador usuarioLogado){
             Console.Clear();
             int resp;
             bool sentinelaHome = false;
@@ -67,8 +61,7 @@ namespace AmericanosDoValeEmbelezado
 
                 switch(resp){
                     case 1:
-                        usu
-                        usuarioLogado.Cadastro();
+                        usuarioLogado.Cadastro(resp, usuarioLogado.cod);
                         break;
 
                     case 2:
