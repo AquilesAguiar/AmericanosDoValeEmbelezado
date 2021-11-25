@@ -92,14 +92,17 @@ namespace AmericanosDoValeEmbelezado
                 switch(resp){
                     case 1:
                         usuarioLogado.Cadastro(resp, usuarioLogado.cod);
+                        Console.Clear();
                         break;
 
                     case 2:
                         usuarioLogado.Cadastro(resp, usuarioLogado.cod);
+                        Console.Clear();
                         break;
                     
                     case 3:
                         mostraPerfil(usuarioLogado);
+                        Console.Clear();
                         break;
 
                     case 4:

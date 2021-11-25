@@ -112,7 +112,6 @@ namespace AmericanosDoValeEmbelezado
                         }
                         sentinela = true;
                     }
-                    
                 }
 
                 catch(Exception ex){
@@ -120,6 +119,7 @@ namespace AmericanosDoValeEmbelezado
                     Console.WriteLine(ex.Message);
                 }
             }
+
         }
 
         //Método de inicialização dos atriutos de um usuario

@@ -27,6 +27,7 @@ Quantidade: {divide[3]}
                 
                     linha = sr.ReadLine();
                 }
+                sr.Close();
                 Console.Write(@"Digite o nome do produto que deseja comprar (caso não for comprar digite 0)?
 >> ");
                 string compra = Console.ReadLine();
@@ -60,6 +61,7 @@ Descrição: {divide[2]}
                     }
                     linha = sr.ReadLine();
                 }
+                sr.Close();
             }
             
         }
@@ -75,7 +77,8 @@ Descrição: {divide[2]}
                     {
                         using (StreamWriter sw = File.AppendText("agenda.txt"))
                         {
-                        sw.WriteLine($"{clienteLogado.nome},{nome_servico},{data}", true);
+                            sw.WriteLine($"{clienteLogado.nome},{nome_servico},{data}", true);
+                            sw.Close();
                         }
             
                     }
@@ -87,6 +90,7 @@ Descrição: {divide[2]}
                 }
                 linha = sr.ReadLine();
             }
+            sr.Close();
             if(cont == 0){
                return "Erro no Agendamento"; 
             }else{
@@ -110,6 +114,7 @@ Descrição: {divide[2]}
                             }
                             linhaAtual = sr.ReadLine();
                         }
+                        sr.Close();
                     }
             
                 //}

@@ -100,12 +100,16 @@ namespace AmericanosDoValeEmbelezado
                     produtos.Add(produto);
                     escreveArquivo(codigoPrestador, nome, preco, desc, qtd.ToString());
                     senti = true;
+                    Console.WriteLine("Produto Cadastrado!");
+                    Console.ReadLine();
                 }
                 else {
                     Servico servico = new Servico(nome, desc, preco);
                     servicos.Add(servico);
                     escreveArquivo(codigoPrestador, nome, preco, desc);
                     senti = true;
+                    Console.WriteLine("Serviço Cadastrado!");
+                    Console.ReadLine();
                 }
                 
                 
@@ -156,6 +160,7 @@ namespace AmericanosDoValeEmbelezado
                 }
                 linha = sr.ReadLine();
             }
+            sr.Close();
         }
         
 
@@ -167,9 +172,11 @@ namespace AmericanosDoValeEmbelezado
                     {
                         if(qtd !=""){
                             sw.WriteLine($"{codigo}+{nome},{preco},{desc},{qtd}+Produto", true);
+                            sw.Close();
                         }
                         else {
                             sw.WriteLine($"{codigo}+{nome},{preco},{desc}+Servico", true);
+                            sw.Close();
                         }
                         
                     }

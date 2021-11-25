@@ -2,3 +2,6 @@
 1+serviço teste,80.0,descrição do serviço+Servico
 1+teste,10,testo,2+Produto
 1+serviço,500,kool+Servico
+1+a,12,sad,4+Produto
+1+a,5,bbb,6+Produto
+1+pp,0,lll+Servico
