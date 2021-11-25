@@ -47,7 +47,6 @@ Motivo: Saldo insulficiente!");
                     }
                 }
             }else{
-
                 while(linha != null) {
                     string[] temp = linha.Split("+");
 
@@ -66,19 +65,17 @@ Descrição: {divide[2]}
         }
 
         public string adcionaPessoa(Cliente clienteLogado, string nome_servico, string data){
-
-            StreamReader sr = new StreamReader("pessoas.txt");
+            StreamReader sr = new StreamReader("estoque.txt");
             string linha = sr.ReadLine();
             int cont = 0;
             while(linha != null){
-                
-                if(linha.Contains(nome_servico)){
-
+                string temp = linha.Split("+")[1].Split(",")[0];
+                if(temp == nome_servico){
                     try
                     {
                         using (StreamWriter sw = File.AppendText("agenda.txt"))
                         {
-                        sw.WriteLine($"{clienteLogado},{nome_servico},{data}", true);
+                        sw.WriteLine($"{clienteLogado.nome},{nome_servico},{data}", true);
                         }
             
                     }

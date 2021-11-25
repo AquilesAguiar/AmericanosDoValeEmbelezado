@@ -33,21 +33,31 @@ namespace AmericanosDoValeEmbelezado
                         Console.Write("Digite 1 para agendar um serviço ou 0 para sair >> ");
                         int aguarda = int.Parse(Console.ReadLine());
 
-                        switch(aguarda){
-                           case 0:
-                                break;
-                            
-                            case 1:
-                                Console.Write("Digite o nome do serviço >>");
-                                string nome_serv = Console.ReadLine();
-                                DateTime data = DateTime.Today;
-                                loja.adcionaPessoa(usuarioLogado, nome_serv, data.ToString("D"));
-                                Console.ReadLine();
-                                break;
-                            
-                            default:
-                                break;
+                        if(aguarda == 0){
+                            return;
+                        }else{
+                            Console.Write("Digite o nome do serviço >> ");
+                            string nome_serv = Console.ReadLine();
+                            DateTime data = DateTime.Today;
+                            Console.WriteLine(loja.adcionaPessoa(usuarioLogado, nome_serv, data.ToString("D")));
+                            Console.ReadLine();
                         }
+
+                        // switch(aguarda){
+                        //    case 0:
+                        //         break;
+                            
+                        //     case 1:
+                        //         Console.Write("Digite o nome do serviço >> ");
+                        //         string nome_serv = Console.ReadLine();
+                        //         DateTime data = DateTime.Today;
+                        //         loja.adcionaPessoa(usuarioLogado, nome_serv, data.ToString("D"));
+                        //         Console.ReadLine();
+                        //         break;
+                            
+                        //     default:
+                        //         break;
+                        // }
                         
                         break;    
                         
