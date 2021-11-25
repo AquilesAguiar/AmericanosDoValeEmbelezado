@@ -101,11 +101,14 @@ namespace AmericanosDoValeEmbelezado
                     escreveArquivo(codigoPrestador, nome, preco, desc, qtd.ToString());
                     senti = true;
                 }
+                else {
+                    Servico servico = new Servico(nome, desc, preco);
+                    servicos.Add(servico);
+                    escreveArquivo(codigoPrestador, nome, preco, desc);
+                    senti = true;
+                }
                 
-                Servico servico = new Servico(nome, desc, preco);
-                servicos.Add(servico);
-                escreveArquivo(codigoPrestador, nome, preco, desc);
-                senti = true;        
+                
             }
 
             return true;
@@ -144,9 +147,10 @@ namespace AmericanosDoValeEmbelezado
                         temp = temp[1].Split(",");
                         Produto produto = new Produto(temp[0], double.Parse(temp[1]), temp[2], int.Parse(temp[3]));
                         produtos.Add(produto);                    
-                }else{
+                    }
+                    else{
                         temp = temp[1].Split(",");
-                        Servico servico = new Servico(temp[0], temp[1], Double.Parse(temp[2]));
+                        Servico servico = new Servico(temp[0], temp[2], Double.Parse(temp[1]));
                         servicos.Add(servico);
                     }
                 }

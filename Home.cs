@@ -65,6 +65,7 @@ namespace AmericanosDoValeEmbelezado
                         break;
 
                     case 2:
+                        usuarioLogado.Cadastro(resp, usuarioLogado.cod);
                         break;
                     
                     case 3:
