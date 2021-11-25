@@ -13,7 +13,16 @@ namespace AmericanosDoValeEmbelezado
             this.senha = senha;
             this.cod = cod;
         }
-        private double saldo = 0.00;
+        private double saldo = 50.00;
 
+        public double Saldo {
+            get {
+                return saldo;
+            }
+
+            private set {
+                saldo -= value;
+            }
+        }
     }
 }
