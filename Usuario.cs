@@ -34,6 +34,16 @@ namespace AmericanosDoValeEmbelezado
             this.senha = senha;
             this.cod = cod;
         }
+        public Usuario(string nome, string telefone, string endereco, string tipo_conta, string cpf_cnpj, string senha, string cod){
+            
+            this.nome = nome;
+            this.telefone = telefone;
+            this.endereco = endereco;
+            this.tipo_conta = tipo_conta;
+            this.cpf_cnpj = cpf_cnpj;
+            this.senha = senha;
+            this.cod = cod;
+        }
 
 
     

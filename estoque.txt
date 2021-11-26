@@ -1,7 +1,4 @@
-1+produto teste,29.5,descrição do produto,5+Produto
-1+serviço teste,80.0,descrição do serviço+Servico
-1+teste,10,testo,2+Produto
-1+serviço,500,kool+Servico
-1+a,12,sad,4+Produto
-1+a,5,bbb,6+Produto
-1+pp,0,lll+Servico
+0+Gel,12,Fixa,12+Produto
+0+Corte,20,Cortar+Servico
+0+Lixa,1,Lixa a unha,12+Produto
+0+Pintar Unha,18,Pintar unhas+Servico
